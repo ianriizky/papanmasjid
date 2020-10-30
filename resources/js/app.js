@@ -21,4 +21,10 @@ new Vue({
                 resolveComponent: (name) => require(`./Pages/${name}`).default,
             },
         }),
+
+    created() {
+        Echo.private('test-event').listen('TestEvent', e => {
+            alert(e.message);
+        });
+    },
 }).$mount(app);
