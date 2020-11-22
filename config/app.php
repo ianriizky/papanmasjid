@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \Ianrizky\MoslemPray\ServiceProvider::class,
 
         /*
          * Application Service Providers...
