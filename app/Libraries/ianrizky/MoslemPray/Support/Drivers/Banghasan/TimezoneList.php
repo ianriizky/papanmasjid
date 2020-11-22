@@ -2,14 +2,14 @@
 
 namespace Ianrizky\MoslemPray\Support\Drivers\Banghasan;
 
-trait TimezoneList
+class TimezoneList
 {
     /**
      * List of city name and it's timezone.
      *
      * @var array
      */
-    protected array $timezones = [
+    protected static array $timezones = [
         '_default' => 'Asia/Jakarta',
         'aceh barat' => 'Asia/Jakarta',
         'aceh barat daya' => 'Asia/Jakarta',
@@ -531,8 +531,8 @@ trait TimezoneList
      * @param  string|null  $default
      * @return string|null
      */
-    protected function getTimezoneList(string $city, string $default = null): ?string
+    public static function getTimezoneList(string $city, string $default = null): ?string
     {
-        return $this->timezones[$city] ?? $default;
+        return static::$timezones[$city] ?? $default;
     }
 }

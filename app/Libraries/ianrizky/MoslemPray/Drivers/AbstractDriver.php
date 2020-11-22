@@ -2,7 +2,10 @@
 
 namespace Ianrizky\MoslemPray\Drivers;
 
+use Carbon\Carbon;
+use Ianrizky\MoslemPray\Contracts\Response\PrayerTime;
 use Illuminate\Http\Client\Factory as Http;
+use Illuminate\Http\Client\Factory;
 
 abstract class AbstractDriver
 {
@@ -24,14 +27,14 @@ abstract class AbstractDriver
      * Create a new instance class.
      *
      * @param  array  $config
-     * @param  \Illuminate\Http\Client\Factory  $http
+     * @param  \Illuminate\Http\Client\Factory|null  $http
      * @return void
      */
-    public function __construct(array $config = [], Http $http)
+    public function __construct(array $config = [], Http $http = null)
     {
         $this->mergeConfig($config);
 
-        $this->http = $http;
+        $this->http = $http ?? resolve(Factory::class);
     }
 
     /**
@@ -66,4 +69,13 @@ abstract class AbstractDriver
 
         return $this->config['url'] . ($subUrl ? '/' . $subUrl : null);
     }
+
+    /**
+     * Return prayer time based on given city and date.
+     *
+     * @param  int|string  $city
+     * @param  \Carbon\Carbon|null  $date
+     * @return \Ianrizky\MoslemPray\Contracts\Response\PrayerTime
+     */
+    abstract public function getPrayerTime($city, Carbon $date = null): PrayerTime;
 }

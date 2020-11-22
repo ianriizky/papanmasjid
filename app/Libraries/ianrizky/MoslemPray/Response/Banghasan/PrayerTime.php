@@ -3,24 +3,13 @@
 namespace Ianrizky\MoslemPray\Response\Banghasan;
 
 use Closure;
+use Ianrizky\MoslemPray\Contracts\Response\PrayerTime as ResponsePrayerTimeContract;
 use Ianrizky\MoslemPray\Response\AbstractResponse;
 use Ianrizky\MoslemPray\Support\Drivers\Banghasan\TimezoneList;
 use Illuminate\Support\Carbon;
 
-/**
- * @property \Illuminate\Support\Carbon $imsak
- * @property \Illuminate\Support\Carbon $subuh
- * @property \Illuminate\Support\Carbon $sunrise
- * @property \Illuminate\Support\Carbon $dhuha
- * @property \Illuminate\Support\Carbon $dzuhur
- * @property \Illuminate\Support\Carbon $ashar
- * @property \Illuminate\Support\Carbon $maghrib
- * @property \Illuminate\Support\Carbon $isya
- */
-class PrayerTime extends AbstractResponse
+class PrayerTime extends AbstractResponse implements ResponsePrayerTimeContract
 {
-    use TimezoneList;
-
     /**
      * Return list of attribute key with it's data type.
      *
@@ -50,7 +39,7 @@ class PrayerTime extends AbstractResponse
     protected function createCarbon(string $cityName): Closure
     {
         return function ($value) use ($cityName) {
-            return new Carbon($value, $this->getTimezoneList(strtolower($cityName), 'Asia/Jakarta'));
+            return new Carbon($value, TimezoneList::getTimezoneList(strtolower($cityName), 'Asia/Jakarta'));
         };
     }
 }

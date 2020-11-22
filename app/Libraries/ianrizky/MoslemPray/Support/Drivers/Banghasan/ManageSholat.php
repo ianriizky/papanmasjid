@@ -2,10 +2,10 @@
 
 namespace Ianrizky\MoslemPray\Support\Drivers\Banghasan;
 
+use Carbon\Carbon;
 use Ianrizky\MoslemPray\Response\Banghasan\City;
 use Ianrizky\MoslemPray\Response\Banghasan\PrayerTime;
 use Illuminate\Http\Client\HttpClientException;
-use Illuminate\Support\Carbon;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -87,7 +87,7 @@ trait ManageSholat
      * Return prayer time based on given city and date.
      *
      * @param  int|string  $city
-     * @param  \Illuminate\Support\Carbon|null  $date
+     * @param  \Carbon\Carbon|null  $date
      * @return \Ianrizky\MoslemPray\Response\Banghasan\PrayerTime
      */
     public function getPrayerTime($city, Carbon $date = null): PrayerTime
